@@ -1,0 +1,23 @@
+{
+    "name": "adasi/ci4-helper",
+    "description": "Helper used in Adasi Software's CodeIgniter 4 projects.",
+    "keywords": ["adasi-software", "utils", "helper","codeigniter4","ci4"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ricardo Cerqueira",
+            "email": "ricardo@adasi.com.br"
+        }
+    ],
+    "type": "library",
+    "require": {
+        "php": ">=7.2"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Adasi\\Express\\": "src/"
+        }
+    }
+}
