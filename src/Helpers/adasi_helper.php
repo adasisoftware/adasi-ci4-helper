@@ -92,6 +92,21 @@ if (! function_exists('unmaskString')) {
     }
 }
 
+if (! function_exists('unmaskFloat'))
+{
+    /**
+     * Transforma uma string formato monetário em float
+     *
+     * @param string $val
+     * @return float
+     */
+    function unmaskFloat(string $value)
+    {
+        if ($value)
+            return (float)str_replace(',', '.', str_replace('.', '', $value));
+    }
+}
+
 if (! function_exists('emptyToNull')) {
     /**
      * Converte elementos de um array vazio em null
