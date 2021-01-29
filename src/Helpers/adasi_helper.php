@@ -50,6 +50,20 @@ if (! function_exists('maskCpfCnpj')) {
     }
 }
 
+
+if (!function_exists('maskPhone')) {
+    /**
+     * Formata uma string com máscara de telefone
+     *
+     * @param string $val
+     * @return string
+     */
+    function maskPhone(string $val)
+    {
+        return $val ? preg_replace('/(\d{2})(\d*)(\d{4})/', '($1) $2-$3', $val) : '';
+    }
+}
+
 if (! function_exists('strToLower')) {
     
     /**
