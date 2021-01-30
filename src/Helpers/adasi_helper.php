@@ -64,7 +64,7 @@ if (!function_exists('maskPhone')) {
     }
 }
 
-if (! function_exists('strToLower')) {
+if (! function_exists('toLowerCase')) {
     
     /**
      * Transforma uma string em minúsculo repeitando o utf8
@@ -72,13 +72,13 @@ if (! function_exists('strToLower')) {
      * @param string $input
      * @return string
      */
-    function strToLower($input)
+    function toLowerCase($input)
     {
         return mb_strtolower(preg_replace('/( ){2,}/', '$1', trim($input)), 'UTF8');
     }
 }
 
-if (! function_exists('strToUpper')) {
+if (! function_exists('toUpperCase')) {
 
     /**
      * Transforma uma string em maiúsculo repeitando o utf8
@@ -86,7 +86,7 @@ if (! function_exists('strToUpper')) {
      * @param string $input
      * @return string
      */
-    function strToUpper($input)
+    function toUpperCase($input)
     {
         return mb_strtoupper(preg_replace('/( ){2,}/', '$1', trim($input)), 'UTF8');
     }
