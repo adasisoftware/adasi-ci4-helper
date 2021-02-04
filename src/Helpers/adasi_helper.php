@@ -143,3 +143,56 @@ if (! function_exists('emptyToNull')) {
         return $val;
     }
 }
+
+if (! function_exists('removeWhiteSpace')) {
+
+    /**
+     * Remove espaços desnecessários de uma string
+     * 
+     * @param string $val
+     * @return string
+     */
+    function removeWhiteSpace($val)
+    {
+        return preg_replace('/\s+/', ' ',$val);
+    }
+}
+
+if (! function_exists('capitalizeName')) {
+
+    /**
+     * Faz a capitalização correta para nomes
+     *
+     * @param string $val
+     * @return string
+     */
+    function capitalizeName($string)
+    {
+        $word_splitters = array(' ', '-', "O'", "L'", "D'", 'Pe.', 'Mc');
+        $lowercase_exceptions = array('da', 'das', 'de', 'do', 'dos', "l'", "e");
+        $uppercase_exceptions = array('III', 'IV', 'VI', 'VII', 'VIII', 'IX');
+
+        $string = toLowerCase($string);
+        foreach ($word_splitters as $delimiter) {
+            $words = explode($delimiter, $string);
+            $newwords = array();
+
+            foreach ($words as $word) {
+                if (in_array(toUpperCase($word), $uppercase_exceptions)) {
+                    $word = toUpperCase($word);
+                } elseif (!in_array($word, $lowercase_exceptions)) {
+                    $word = ucfirst($word);
+                }
+
+                $newwords[] = $word;
+            }
+
+            if (in_array(toLowerCase($delimiter), $lowercase_exceptions)) {
+                $delimiter = toLowerCase($delimiter);
+            }
+
+            $string = join($delimiter, $newwords);
+        }
+        return removeWhiteSpace( $string );
+    }
+}
