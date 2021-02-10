@@ -169,7 +169,7 @@ if (! function_exists('capitalizeName')) {
     function capitalizeName($string)
     {
         $word_splitters = array(' ', '-', "O'", "L'", "D'", 'Pe.', 'Mc');
-        $lowercase_exceptions = array('da', 'das', 'de', 'do', 'dos', "l'", "e");
+        $lowercase_exceptions = array('da', 'das', 'de', 'do', 'dos', "l'", 'e', 'em', 'com');
         $uppercase_exceptions = array('III', 'IV', 'VI', 'VII', 'VIII', 'IX');
 
         $string = toLowerCase($string);
@@ -194,5 +194,23 @@ if (! function_exists('capitalizeName')) {
             $string = join($delimiter, $newwords);
         }
         return removeWhiteSpace( $string );
+    }
+}
+
+if (! function_exists('parseDateSQL')) {
+    /**
+     * Formata uma data em formato padrão SQL (YYYY-MM-DD)
+     *
+     * @param string $val
+     * @return string
+     */
+    function parseDateSQL(string $val)
+    {
+        if (!empty($val)) {
+            $p_dt = explode('/', $val);
+            $data_sql = $p_dt[2].'-'.$p_dt[1].'-'.$p_dt[0];
+
+            return $data_sql;
+        }
     }
 }
