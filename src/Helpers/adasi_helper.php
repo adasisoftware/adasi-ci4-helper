@@ -117,7 +117,7 @@ if (! function_exists('unmaskFloat'))
     function unmaskFloat(string $value)
     {
         if ($value)
-            return (float)str_replace(',', '.', str_replace('.', '', $value));
+            return (float)preg_replace("/[^0-9\.,]+/", "", str_replace(',', '.', str_replace('.', '', $value)));
     }
 }
 
