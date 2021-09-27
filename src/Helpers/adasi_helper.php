@@ -214,3 +214,42 @@ if (! function_exists('parseDateSQL')) {
         }
     }
 }
+
+if (! function_exists('toPostgresArray'))
+{
+    /**
+     * Prepara um array em PHP para Postgres
+     *
+     * @param array $set
+     * @return string
+     */
+    function toPostgresArray($set) {
+        settype($set, 'array'); // can be called with a scalar or array
+        $result = array();
+        foreach ($set as $t) {
+            if (is_array($t)) {
+                $result[] = to_pg_array($t);
+            } else {
+                $t = str_replace('"', '\\"', $t); // escape double quote
+                if (! is_numeric($t)) // quote only non-numeric values
+                    $t = '"' . $t . '"';
+                $result[] = $t;
+            }
+        }
+        return '{' . implode(",", $result) . '}'; // format
+    }
+}
+
+if (! function_exists('postgresArrayParse'))
+{
+    function postgresArrayParse($literal)
+    {
+        if ($literal == '') return;
+        preg_match_all('/(?<=^\{|,)(([^,"{]*)|\s*"((?:[^"\\\\]|\\\\(?:.|[0-9]+|x[0-9a-f]+))*)"\s*)(,|(?<!^\{)(?=\}$))/i', $literal, $matches, PREG_SET_ORDER);
+        $values = [];
+        foreach ($matches as $match) {
+            $values[] = $match[3] != '' ? stripcslashes($match[3]) : (strtolower($match[2]) == 'null' ? null : $match[2]);
+        }
+        return $values;
+    }
+}
